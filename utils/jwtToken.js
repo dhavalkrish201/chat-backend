@@ -11,7 +11,7 @@ export const generateJWTToken = (user, message, statusCode, res) => {
       httpOnly: true,
       maxAge: Number(process.env.COOKIE_EXPIRE),
       sameSite: "None",
-      secure: process.env.NODE_ENV === "development" ? false : true,
+      secure: process.env.NODE_ENV === "production" ? true : false,
     })
     .json({
       success: true,
