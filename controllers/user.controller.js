@@ -91,7 +91,7 @@ export const signout = catchAsyncError(async (req, res, next) => {
     .cookie("token", "", {
       httpOnly: true,
       maxAge: 0,
-      sameSite: "strict",
+      sameSite: "None",
       secure: process.env.NODE_ENV === "development" ? true : false,
     })
     .json({
@@ -141,7 +141,7 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
               fetch_format: "auto",
             },
           ],
-        }
+        },
       );
     } catch (error) {
       console.log("Cloudinary upload error:", error);
