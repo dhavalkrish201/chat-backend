@@ -65,7 +65,7 @@ export const sendMessage = catchAsyncError(async (req, res, next) => {
       const uploadResponse = await cloudinary.uploader.upload(
         media.tempFilePath,
         {
-          resouse_type: "auto", // auto detect image/video
+          resource_type: "auto", // auto detect image/video
           folder: "CHAT_APP_MEDIA",
           transformation: [
             {
@@ -105,12 +105,9 @@ export const sendMessage = catchAsyncError(async (req, res, next) => {
 
   const senderSocketId = getReceiverSocketId(senderId);
 
+  // message.controller.js
   if (receiverSocketId) {
-    io.to(receiverSocketId).emit("NewMessage", newMessage);
-  }
-
-  if (senderSocketId) {
-    io.to(senderSocketId).emit("NewMessage", newMessage);
+    io.to(receiverSocketId).emit("newMessage", newMessage); // ✅ lowercase
   }
 
   res.status(201).json({
